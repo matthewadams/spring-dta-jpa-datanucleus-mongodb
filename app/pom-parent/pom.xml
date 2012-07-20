@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example</groupId>
+  <artifactId>parent-pom</artifactId>
+  <packaging>pom</packaging>
+  <version>0.1.0.BUILD-SNAPSHOT</version>
+  <name>Application Parent POM</name>
+
+  <profiles>
+    <profile>
+      <!-- DataNucleus current production release -->
+      <id>dn30</id>
+      <activation>
+        <property>
+          <name>dn30</name>
+        </property>
+      </activation>
+      <properties>
+        <app.datanucleus-core.version>3.0.11</app.datanucleus-core.version>
+        <app.datanucleus-api-jdo.version>3.0.8</app.datanucleus-api-jdo.version>
+        <app.datanucleus-jdo-query.version>3.0.2</app.datanucleus-jdo-query.version>
+        <app.datanucleus-mongodb.version>3.0.6</app.datanucleus-mongodb.version>
+        <app.datanucleus-api-jpa.version>3.0.11</app.datanucleus-api-jpa.version>
+        <app.datanucleus-jpa-query.version>3.0.2</app.datanucleus-jpa-query.version>
+        <app.datanucleus-rdbms.version>3.0.10</app.datanucleus-rdbms.version>
+        <app.maven-datanucleus-plugin.version>3.0.2</app.maven-datanucleus-plugin.version>
+      </properties>
+    </profile>
+    <profile>
+      <!-- DataNucleus 3.1.0 prerelease -->
+      <id>dn31m</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>dn31m</name>
+        </property>
+      </activation>
+      <properties>
+        <app.datanucleus-core.version>3.1.0-m5</app.datanucleus-core.version>
+        <app.datanucleus-api-jdo.version>3.1.0-m3</app.datanucleus-api-jdo.version>
+        <app.datanucleus-jdo-query.version>3.0.2</app.datanucleus-jdo-query.version>
+        <app.datanucleus-mongodb.version>3.1.0-m5</app.datanucleus-mongodb.version>
+        <app.datanucleus-api-jpa.version>3.1.0-m3</app.datanucleus-api-jpa.version>
+        <app.datanucleus-jpa-query.version>3.0.2</app.datanucleus-jpa-query.version>
+        <app.datanucleus-rdbms.version>3.1.0-m5</app.datanucleus-rdbms.version>
+        <app.maven-datanucleus-plugin.version>3.0.2</app.maven-datanucleus-plugin.version>
+      </properties>
+    </profile>
+    <profile>
+      <!-- DataNucleus nightly build (currently fails to build due to maven-datanucleus-plugin) -->
+      <id>dn31n</id>
+      <activation>
+        <property>
+          <name>dn31n</name>
+        </property>
+      </activation>
+      <properties>
+        <app.datanucleus-core.version>3.1.0-release-SNAPSHOT</app.datanucleus-core.version>
+        <app.datanucleus-api-jdo.version>3.1.0-release-SNAPSHOT</app.datanucleus-api-jdo.version>
+        <app.datanucleus-jdo-query.version>3.0.2</app.datanucleus-jdo-query.version>
+        <app.datanucleus-mongodb.version>3.1.0-release-SNAPSHOT</app.datanucleus-mongodb.version>
+        <app.datanucleus-api-jpa.version>3.1.0-release-SNAPSHOT</app.datanucleus-api-jpa.version>
+        <app.datanucleus-jpa-query.version>3.0.2</app.datanucleus-jpa-query.version>
+        <app.datanucleus-rdbms.version>3.1.0-release-SNAPSHOT</app.datanucleus-rdbms.version>
+        <app.maven-datanucleus-plugin.version>3.1.0-m3</app.maven-datanucleus-plugin.version>
+      </properties>
+    </profile>
+  </profiles>
+
+  <properties>
+    <!-- basics -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <app.java.version>1.6</app.java.version>
+    <app.aspectj.version>1.7.0</app.aspectj.version>
+    <app.aspectj-maven-plugin.version>1.2</app.aspectj-maven-plugin.version>
+    <app.spring.version>3.1.2.RELEASE</app.spring.version>
+    <app.commons-lang3.version>3.1</app.commons-lang3.version>
+    <app.org.osgi.core.version>5.0.0</app.org.osgi.core.version>
+    <app.org.osgi.compendium.version>4.3.0</app.org.osgi.compendium.version>
+    <app.gemini-blueprint-core.version>1.0.0.RELEASE</app.gemini-blueprint-core.version>
+    <!-- logging -->
+    <app.logback.version>1.0.6</app.logback.version>
+    <app.log4j-over-slf4j.version>1.6.6</app.log4j-over-slf4j.version>
+    <app.jcl-over-slf4j.version>1.6.6</app.jcl-over-slf4j.version>
+    <app.jul-to-slf4j.version>1.6.6</app.jul-to-slf4j.version>
+    <!-- persistence -->
+    <app.jta.version>1.1</app.jta.version>
+    <app.commons-pool.version>1.5.6</app.commons-pool.version>
+    <app.commons-dbcp.version>1.4</app.commons-dbcp.version>
+    <app.spring-data-jpa.version>1.1.0.RELEASE</app.spring-data-jpa.version>
+    <app.querydsl.version>2.7.0</app.querydsl.version>
+    <app.jdo-api.version>3.0.1</app.jdo-api.version>
+    <app.validation-api.version>1.0.0.GA</app.validation-api.version>
+    <app.hibernate-validator.version>4.3.0.Final</app.hibernate-validator.version>
+    <!-- testing -->
+    <app.junit.version>4.10</app.junit.version>
+    <app.testng.version>6.7</app.testng.version>
+    <app.hamcrest-all.version>1.3</app.hamcrest-all.version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>com.springsource.repository.bundles.release</id>
+      <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+      <url>http://repository.springsource.com/maven/bundles/release</url>
+    </repository>
+    <repository>
+      <id>com.springsource.repository.bundles.external</id>
+      <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+      <url>http://repository.springsource.com/maven/bundles/external</url>
+    </repository>
+    <repository>
+      <id>com.springsource.repository.libraries.release</id>
+      <name>SpringSource Enterprise Bundle Repository - SpringSource Library Releases</name>
+      <url>http://repository.springsource.com/maven/libraries/release</url>
+    </repository>
+    <repository>
+      <id>com.springsource.repository.libraries.external</id>
+      <name>SpringSource Enterprise Bundle Repository - External Library Releases</name>
+      <url>http://repository.springsource.com/maven/libraries/external</url>
+    </repository>
+    <repository>
+      <id>spring-roo-repository</id>
+      <name>Spring Roo Repository</name>
+      <url>http://spring-roo-repository.springsource.org/release</url>
+    </repository>
+    <repository>
+      <id>datanucleus</id>
+      <name>DataNucleus Release Repository</name>
+      <url>http://www.datanucleus.org/downloads/maven2</url>
+    </repository>
+    <repository>
+      <id>datanucleus-prerelease</id>
+      <name>DataNucleus Prerelease Repository</name>
+      <url>http://www.datanucleus.org/downloads/maven2-nightly</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>java.net-prerelease</id>
+      <name>Maven Java Net Snapshots and Releases</name>
+      <url>https://maven.java.net/content/groups/public/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>querydsl-release</id>
+      <name>QueryDSL Maven Release Repo</name>
+      <url>http://source.mysema.com/maven2/releases</url>
+    </repository>
+    <!-- <repository> <id>zodiac-release-repository</id> <name>Zodiac Release 
+      Repository</name> <url>http://zodiac.springsource.com/maven/bundles/release</url> 
+      </repository> <repository> <id>zodiac-milestone-repository</id> <name>Zodiac 
+      Milestone Repository</name> <url>http://zodiac.springsource.com/maven/bundles/milestone</url> 
+      </repository> -->
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>spring-maven-release</id>
+      <name>Spring Maven Release Repository</name>
+      <url>http://maven.springframework.org/release</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>spring-maven-milestone</id>
+      <name>Spring Maven Milestone Repository</name>
+      <url>http://maven.springframework.org/milestone</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>spring-roo-repository</id>
+      <name>Spring Roo Repository</name>
+      <url>http://spring-roo-repository.springsource.org/release</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <dependencyManagement>
+
+    <dependencies>
+      <!-- basics -->
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjrt</artifactId>
+        <version>${app.aspectj.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>${app.aspectj.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${app.commons-lang3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${app.spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${app.spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${app.spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+        <version>${app.spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${app.spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${app.spring.version}</version>
+      </dependency>
+      <!-- <dependency> <groupId>org.eclipse.gemini.blueprint</groupId> <artifactId>gemini-blueprint-core</artifactId> 
+        <version>${app.gemini-blueprint-core.version}</version> <scope>provided</scope> 
+        </dependency> -->
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.core</artifactId>
+        <version>${app.org.osgi.core.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.compendium</artifactId>
+        <version>${app.org.osgi.compendium.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.inject</groupId>
+        <artifactId>javax.inject</artifactId>
+        <version>1</version>
+      </dependency>
+
+      <!-- testing -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${app.spring.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>${app.testng.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <!-- We prefer TestNG...use sparingly if at all -->
+        <groupId>junit</groupId>
+        <artifactId>junit-dep</artifactId>
+        <version>${app.junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>${app.hamcrest-all.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- logging: (log4j, jcl, jul) -> slf4j/logback -->
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.1.1</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>log4j-over-slf4j</artifactId>
+        <version>${app.log4j-over-slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${app.jcl-over-slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jul-to-slf4j</artifactId>
+        <version>${app.jul-to-slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${app.logback.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.5</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.flexjson</groupId>
+        <artifactId>flexjson</artifactId>
+        <version>2.1</version>
+      </dependency>
+
+      <!-- persistence -->
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>${app.spring-data-jpa.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.jdo</groupId>
+        <artifactId>jdo-api</artifactId>
+        <version>${app.jdo-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>javax.persistence</artifactId>
+        <version>2.0.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-core</artifactId>
+        <version>${app.datanucleus-core.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.jdo</groupId>
+            <artifactId>jdo-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-api-jdo</artifactId>
+        <version>${app.datanucleus-api-jdo.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.jdo</groupId>
+            <artifactId>jdo-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-jdo-query</artifactId>
+        <version>${app.datanucleus-jdo-query.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-mongodb</artifactId>
+        <version>${app.datanucleus-mongodb.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-api-jpa</artifactId>
+        <version>${app.datanucleus-api-jpa.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_2.0_spec</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-jpa-query</artifactId>
+        <version>${app.datanucleus-jpa-query.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-rdbms</artifactId>
+        <version>${app.datanucleus-rdbms.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>com.mysema.querydsl</groupId>
+        <artifactId>querydsl-apt</artifactId>
+        <version>${app.querydsl.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.mysema.querydsl</groupId>
+        <artifactId>querydsl-jpa</artifactId>
+        <version>${app.querydsl.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>${app.validation-api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${app.hibernate-validator.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.transaction</groupId>
+        <artifactId>jta</artifactId>
+        <version>${app.jta.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-pool</groupId>
+        <artifactId>commons-pool</artifactId>
+        <version>${app.commons-pool.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-dbcp</groupId>
+        <artifactId>commons-dbcp</artifactId>
+        <version>${app.commons-dbcp.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.5.1</version>
+          <configuration>
+            <source>${app.java.version}</source>
+            <target>${app.java.version}</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>aspectj-maven-plugin</artifactId>
+          <version>${app.aspectj-maven-plugin.version}</version>
+          <!-- NB: do not use 1.3 or 1.3.x due to MASPECTJ-90 and do not 
+            use 1.4 due to declare parents issue -->
+          <dependencies>
+            <!-- NB: You must use Maven 2.0.9 or above or these are ignored 
+              (see MNG-2972) -->
+            <dependency>
+              <groupId>org.aspectj</groupId>
+              <artifactId>aspectjrt</artifactId>
+              <version>${app.aspectj.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.aspectj</groupId>
+              <artifactId>aspectjtools</artifactId>
+              <version>${app.aspectj.version}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <goals>
+                <goal>compile</goal>
+                <goal>test-compile</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <aspectLibraries>
+              <aspectLibrary>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+              </aspectLibrary>
+            </aspectLibraries>
+            <complianceLevel>${app.java.version}</complianceLevel>
+            <outxml>true</outxml>
+            <XnoInline>true</XnoInline>
+            <Xreweavable>true</Xreweavable>
+            <preserveAllLocals>true</preserveAllLocals>
+            <showWeaveInfo>true</showWeaveInfo>
+            <source>${app.java.version}</source>
+            <target>${app.java.version}</target>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.5</version>
+          <configuration>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.12</version>
+          <executions>
+            <execution>
+              <id>app-unit-tests</id>
+              <phase>test</phase>
+            </execution>
+          </executions>
+          <configuration>
+            <parallel>classes</parallel>
+            <threadCount>10</threadCount>
+            <includes>
+              <include>**/test/unit/**/*.java</include>
+            </includes>
+            <excludes>
+              <exclude>**/test/integration/**/*.java</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.12</version>
+          <executions>
+            <execution>
+              <id>integration-test</id>
+              <goals>
+                <goal>integration-test</goal>
+              </goals>
+              <configuration>
+                <parallel>classes</parallel>
+                <threadCount>10</threadCount>
+                <includes>
+                  <include>**/IT*.java</include>
+                  <include>**/*IT.java</include>
+                  <include>**/*ITCase.java</include>
+                  <include>**/test/**/integration/**/*.java</include>
+                </includes>
+                <excludes>
+                  <exclude>**/test/**/unit/**</exclude>
+                </excludes>
+              </configuration>
+            </execution>
+            <execution>
+              <id>verify</id>
+              <goals>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>2.9</version>
+          <configuration>
+            <downloadSources>true</downloadSources>
+            <downloadJavadocs>false</downloadJavadocs>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-idea-plugin</artifactId>
+          <version>2.2</version>
+          <configuration>
+            <downloadSources>true</downloadSources>
+            <dependenciesAsLibraries>true</dependenciesAsLibraries>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

@@ -1,5 +1,7 @@
 package app.domain.repo.sdjpa;
 
-public interface ProfileRepository {
+import app.domain.Profile;
 
+public interface ProfileRepository extends
+		JpaSpecificationQueryDslRepository<Profile, String> {
 }

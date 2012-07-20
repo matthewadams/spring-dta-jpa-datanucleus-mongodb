@@ -22,11 +22,11 @@ import app.domain.repo.sdjpa.ProfileRepository;
 import app.test.support.AbstractDataSourcelessTransactionalTestNGSpringContextTests;
 
 @ContextConfiguration("classpath*:META-INF/spring/*.xml")
-public abstract class SdJpaProfileIntegrationTest extends
+public class SdJpaProfileRepositoryIntegrationTest extends
 		AbstractDataSourcelessTransactionalTestNGSpringContextTests {
 
 	protected static final Logger log = LoggerFactory
-			.getLogger(SdJpaProfileIntegrationTest.class);
+			.getLogger(SdJpaProfileRepositoryIntegrationTest.class);
 
 	@Resource
 	ProfileRepository repo;

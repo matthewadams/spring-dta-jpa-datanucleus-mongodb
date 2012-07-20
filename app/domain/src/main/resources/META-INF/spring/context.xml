@@ -12,12 +12,10 @@
     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
     ">
 
-  <context:spring-configured />
-
   <context:property-placeholder
     location="classpath:META-INF/spring/app-domain-persistence.properties" />
 
-  <!-- jpa:repositories base-package="app.domain.repo" / -->
+  <jpa:repositories base-package="app.domain.repo.sdjpa" />
 
   <beans profile="prod">
     <bean id="emf"

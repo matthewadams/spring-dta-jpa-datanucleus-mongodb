@@ -12,21 +12,24 @@
   <context:annotation-config />
   <context:spring-configured />
 
-  <bean id="emf"
-    class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-    <property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
-    <property name="jpaProperties">
-      <value>
-        datanucleus.ConnectionURL=mongodb:localhost/domain-test
-        datanucleus.storeManagerType=mongodb
-        datanucleus.autoCreateSchema=true
-        datanucleus.jpa.addClassTransformer=false
-      </value>
-    </property>
-  </bean>
+  <beans profile="default,dev,ci">
+  
+    <bean id="emf"
+      class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+      <property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
+      <property name="jpaProperties">
+        <value>
+          datanucleus.ConnectionURL=mongodb:localhost/domain-test
+          datanucleus.storeManagerType=mongodb
+          datanucleus.autoCreateSchema=true
+          datanucleus.jpa.addClassTransformer=false
+        </value>
+      </property>
+    </bean>
 
-  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-    <property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
-  </bean>
-
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+      <property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
+    </bean>
+    
+  </beans>
 </beans>

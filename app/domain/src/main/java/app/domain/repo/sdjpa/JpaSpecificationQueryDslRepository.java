@@ -1,4 +1,4 @@
-package app.domain.repo;
+package app.domain.repo.sdjpa;
 
 import java.io.Serializable;
 

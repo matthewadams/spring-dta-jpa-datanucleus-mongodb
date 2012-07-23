@@ -1,6 +1,6 @@
 Overview
 ========
-This file describes the multimodule Maven project rooted in the "app" directory in the directory containing this file.
+This file describes the multimodule Maven project rooted in the directory containing this file.
 
 MongoDB
 =======

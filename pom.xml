@@ -12,7 +12,6 @@
     <module>pom-parent</module>
     <module>test-support</module>
     <module>domain</module>
-    <module>service</module>
   </modules>
 
 </project>
